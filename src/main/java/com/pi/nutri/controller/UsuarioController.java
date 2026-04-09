@@ -4,12 +4,15 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.pi.nutri.dto.Usuario.UsuarioRequestDto;
+import com.pi.nutri.dto.Usuario.UsuarioResponseDto;
 import com.pi.nutri.model.Usuario;
 import com.pi.nutri.service.UsuarioService;
 
@@ -23,15 +26,19 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public ResponseEntity<Usuario> criarUsuario(@RequestBody Usuario usuario){
-        Usuario novoUsuario = usuarioService.salvarUsuario(usuario);
-        return ResponseEntity.status(HttpStatus.CREATED).body(novoUsuario);
+    public ResponseEntity<?> criarUsuario(@RequestBody UsuarioRequestDto usuario) {
+        try {
+            UsuarioResponseDto novoUsuario = usuarioService.salvarUsuario(usuario);
+            return ResponseEntity.status(HttpStatus.CREATED).body(novoUsuario);
+
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 
-
     @GetMapping
-    public ResponseEntity<List<Usuario>> listarUsuarios(){
-        List<Usuario> usuarios = usuarioService.listarUsuarios();
+    public ResponseEntity<List<UsuarioResponseDto>> listarUsuarios() {
+        List<UsuarioResponseDto> usuarios = usuarioService.listarUsuarios();
         return ResponseEntity.ok(usuarios);
     }
 }
