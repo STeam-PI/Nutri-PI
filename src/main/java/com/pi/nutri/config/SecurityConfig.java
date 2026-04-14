@@ -19,6 +19,8 @@ public class SecurityConfig {
                     .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                     .authorizeHttpRequests(authorize -> authorize.requestMatchers(HttpMethod.POST, "/api/usuarios").permitAll()
                     .requestMatchers(HttpMethod.POST, "/api/usuarios/login").permitAll()
+                    .requestMatchers(HttpMethod.POST, "/api/usuarios/esqueci-senha").permitAll()
+                    .requestMatchers(HttpMethod.POST, "/api/usuarios/reset-senha").permitAll()
                     .anyRequest().authenticated()
                 ).build();
     }
