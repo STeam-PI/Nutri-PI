@@ -1,6 +1,6 @@
 # NutriPI
 
-Plataforma web de marcação de consultas para consultórios, com foco em **agendamento direto pelo paciente**, **organização da grade médica** e **redução de faltas (absenteísmo)** por meio de fluxo digital integrado.
+Plataforma web de marcação de consultas para consultórios de nutrição, com foco em **agendamento direto pelo paciente**, **organização da grade do nutricionista** e **redução de faltas (absenteísmo)** por meio de fluxo digital integrado.
 
 ---
 
@@ -8,7 +8,7 @@ Plataforma web de marcação de consultas para consultórios, com foco em **agen
 
 O **NutriPI** nasce para substituir processos manuais de agendamento por uma experiência digital simples e centralizada, conectando:
 
-- **Médico**, que configura sua disponibilidade de atendimento;
+- **Nutricionista**, que configura sua disponibilidade de atendimento;
 - **Paciente**, que visualiza horários e realiza reservas pela área logada;
 - **Recepção**, que acompanha e gerencia o status das consultas.
 
@@ -26,7 +26,7 @@ No MVP, o sistema prioriza rapidez de operação, clareza no fluxo de marcação
 
 ### 2.2 Escopo
 
-O objetivo primordial do software é **automatizar a gestão de agendamentos em consultórios médicos**, eliminando tarefas manuais e combatendo faltas com notificações e controle de status.
+O objetivo primordial do software é **automatizar a gestão de agendamentos em consultórios de nutrição**, eliminando tarefas manuais e combatendo faltas com notificações e controle de status.
 
 O foco inicial está em:
 
@@ -58,7 +58,7 @@ O produto entrega uma plataforma de agendamento direto onde o consultório publi
 
 ### Incluído no MVP
 
-- Configuração de grade de horários do médico;
+- Configuração de grade de horários do nutricionista;
 - Visualização de disponibilidade para agendamento;
 - Agendamento direto pelo paciente em área autenticada;
 - Cadastro básico de paciente no primeiro agendamento;
@@ -80,7 +80,7 @@ O produto entrega uma plataforma de agendamento direto onde o consultório publi
 
 | Cod. | Nome                    | Descrição |
 |------|-------------------------|-----------|
-| F01  | Configuração de Grade   | O sistema deve permitir que o médico defina dias, horários de atendimento e duração padrão das consultas. |
+| F01  | Configuração de Grade   | O sistema deve permitir que o nutricionista defina dias, horários de atendimento e duração padrão das consultas. |
 | F02  | Agendamento Direto      | O paciente deve conseguir visualizar horários disponíveis e realizar reserva pela área logada do site. |
 | F03  | Gestão de Status        | A recepção deve poder marcar consultas como **Confirmada** ou **Cancelada**. |
 | F04  | Cadastro de Pacientes   | O sistema deve permitir registro básico de dados do paciente no momento do primeiro agendamento. |
@@ -100,7 +100,7 @@ O produto entrega uma plataforma de agendamento direto onde o consultório publi
 
 ```mermaid
 graph LR
-    Medico((Médico))
+    Nutricionista((Nutricionista))
     Paciente((Paciente))
     Recepcao((Recepção))
 
@@ -116,7 +116,7 @@ graph LR
         UC4 -. "<<extend>>" .-> UC2
     end
 
-    Medico --- UC1
+    Nutricionista --- UC1
     Paciente --- UC2
     Paciente --- UC5
     Recepcao --- UC6
@@ -124,7 +124,7 @@ graph LR
 
 ### 5.1 Atores
 
-- **Médico**: define agenda e janelas de atendimento.
+- **Nutricionista**: define agenda e janelas de atendimento.
 - **Paciente**: consulta disponibilidade, agenda e cancela consultas.
 - **Recepção**: valida atendimento operacional confirmando ou cancelando status.
 
@@ -137,7 +137,7 @@ graph LR
 
 ## 6. Personas do Sistema
 
-### 6.1 Persona 1 — Médico (Gestor de Agenda)
+### 6.1 Persona 1 — Nutricionista (Gestor de Agenda)
 
 - **Nome representativo**: Dr. Rafael (Nutrólogo/Nutricionista)
 - **Objetivo principal**: manter agenda organizada e previsível.
