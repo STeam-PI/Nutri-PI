@@ -27,7 +27,9 @@ public class UsuarioService {
     private final PasswordEncoder bCryptSecurity;
     private final TokenService tokenService;
     private final JavaMailSender mailSender;
-    public UsuarioService(UsuarioRepository repository, PasswordEncoder bCryptSecurity, TokenService tokenService, JavaMailSender mailSender) {
+
+    public UsuarioService(UsuarioRepository repository, PasswordEncoder bCryptSecurity, TokenService tokenService,
+            JavaMailSender mailSender) {
         this.usuarioRepository = repository;
         this.bCryptSecurity = bCryptSecurity;
         this.tokenService = tokenService;
@@ -35,8 +37,11 @@ public class UsuarioService {
     }
 
     public UsuarioResponseDto salvarUsuario(UsuarioRequestDto usuarioRequest) {
-        if(!usuarioRequest.getSenha().equals(usuarioRequest.getConfirmeSenha())){
+        if (!usuarioRequest.getSenha().equals(usuarioRequest.getConfirmeSenha())) {
             throw new RuntimeException("As senhas não coincidem");
+        }
+        if (usuarioRepository.findByEmail(usuarioRequest.getEmail()).isPresent()) {
+            throw new RuntimeException("Este e-mail já está cadastrado no sistema.");
         }
         Usuario usuario = new Usuario();
         usuario.setNome(usuarioRequest.getNome());
@@ -53,15 +58,18 @@ public class UsuarioService {
         return usuarioRepository.findAll().stream().map(this::converterUsuarioDto).collect(Collectors.toList());
     }
 
-    public String fazerLogin(LoginRequestDto login){
-        Usuario usuario = usuarioRepository.findByEmail(login.getEmail()).orElseThrow(() -> new RuntimeException("Usuário ou senha incorretos"));
-        if(bCryptSecurity.matches(login.getSenha(), usuario.getSenha())) return tokenService.gerarToken(usuario);
+    public String fazerLogin(LoginRequestDto login) {
+        Usuario usuario = usuarioRepository.findByEmail(login.getEmail())
+                .orElseThrow(() -> new RuntimeException("Usuário ou senha incorretos"));
+        if (bCryptSecurity.matches(login.getSenha(), usuario.getSenha()))
+            return tokenService.gerarToken(usuario);
         throw new RuntimeException("Usuário ou senha incorretos");
 
     }
 
-    public void recuperacaoDeSenha(String email){
-        Usuario usuario = usuarioRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+    public void recuperacaoDeSenha(String email) {
+        Usuario usuario = usuarioRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
         String token = UUID.randomUUID().toString();
         usuario.setResetToken(token);
@@ -79,11 +87,14 @@ public class UsuarioService {
         mailSender.send(mensagem);
     }
 
-
-    public void redefinirSenha(String token, String novaSenha){
-        Usuario usuario = usuarioRepository.findByResetToken(token).orElseThrow(() -> new RuntimeException("Token inválido"));
-        if(usuario.getExpiracaoToken().isBefore(LocalDateTime.now())){
+    public void redefinirSenha(String token, String novaSenha, String confirmeSenha) {
+        Usuario usuario = usuarioRepository.findByResetToken(token)
+                .orElseThrow(() -> new RuntimeException("Token inválido"));
+        if (usuario.getExpiracaoToken().isBefore(LocalDateTime.now())) {
             throw new RuntimeException("Seu token expirou");
+        }
+        if(!novaSenha.equals(confirmeSenha)){
+            throw new RuntimeException("As senhas não coincidem");
         }
 
         usuario.setSenha(bCryptSecurity.encode(novaSenha));

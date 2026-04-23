@@ -46,6 +46,7 @@ public class UsuarioController {
         List<UsuarioResponseDto> usuarios = usuarioService.listarUsuarios();
         return ResponseEntity.ok(usuarios);
     }
+
     @PostMapping("/esqueci-senha")
     public ResponseEntity<String> esqueciSenha(@RequestBody EsqueciSenhaDto esqueciSenha) {
         try {
@@ -59,7 +60,8 @@ public class UsuarioController {
     @PostMapping("/reset-senha")
     public ResponseEntity<String> recuperarSenha(@RequestBody RedefinirSenhaDto redefinirSenhaDto) {
         try {
-            usuarioService.redefinirSenha(redefinirSenhaDto.getToken(), redefinirSenhaDto.getNovaSenha());
+            usuarioService.redefinirSenha(redefinirSenhaDto.getToken(), redefinirSenhaDto.getNovaSenha(),
+                    redefinirSenhaDto.getConfirmeSenha());
             return ResponseEntity.ok("Sua senha foi redefinida");
 
         } catch (RuntimeException e) {
