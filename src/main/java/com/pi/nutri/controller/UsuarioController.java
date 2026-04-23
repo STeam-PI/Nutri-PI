@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,12 +40,12 @@ public class UsuarioController {
         }
     }
 
+    @PreAuthorize("hasRole('NUTRI')")
     @GetMapping
     public ResponseEntity<List<UsuarioResponseDto>> listarUsuarios() {
         List<UsuarioResponseDto> usuarios = usuarioService.listarUsuarios();
         return ResponseEntity.ok(usuarios);
     }
-
     @PostMapping("/esqueci-senha")
     public ResponseEntity<String> esqueciSenha(@RequestBody EsqueciSenhaDto esqueciSenha) {
         try {
