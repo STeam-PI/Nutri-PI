@@ -1,5 +1,7 @@
 package com.pi.nutri.model;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.*;
 import lombok.Data;
 @Data
@@ -24,4 +26,10 @@ public class Usuario {
 
     @Column(length = 20)
     private String crn;
+
+    @Column(name = "reset_token")
+    private String resetToken;
+
+    @Column(name = "expiracao_token")
+    private LocalDateTime expiracaoToken;
 }
