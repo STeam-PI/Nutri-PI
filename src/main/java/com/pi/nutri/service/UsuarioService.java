@@ -18,7 +18,7 @@ import com.pi.nutri.model.Usuario;
 import com.pi.nutri.repository.UsuarioRepository;
 import com.pi.nutri.service.Token.TokenService;
 
-import lombok.var;
+//import lombok.var;
 
 @Service
 public class UsuarioService {

@@ -21,4 +21,8 @@ public class Agenda {
 
     @Column(name = "is_disponivel", nullable = false)
     private boolean isDisponivel;
+
+    //4.3.3 nasce aqui
+    @Column(name = "duracao_minutos", nullable = false)
+    private Integer duracaoMinutos;
 }
