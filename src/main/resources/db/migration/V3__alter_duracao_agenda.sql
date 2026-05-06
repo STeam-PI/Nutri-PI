@@ -1,0 +1,1 @@
+ALTER TABLE agendas ADD duracao_minutos INT NOT NULL DEFAULT 30;
