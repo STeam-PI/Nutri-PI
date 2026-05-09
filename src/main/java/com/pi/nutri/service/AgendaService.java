@@ -1,10 +1,13 @@
 package com.pi.nutri.service;
 
 import com.pi.nutri.dto.Agenda.AgendaRequestDto;
+import com.pi.nutri.exception.HorarioOcupadoException;
 import com.pi.nutri.model.Agenda;
 import com.pi.nutri.repository.AgendaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalTime;
 import java.util.List;
 
 @Service
@@ -34,6 +37,15 @@ public class AgendaService {
         // Regra da 4.3.3: Se a duração for nula no DTO, aplicar 30 como default
         agenda.setDuracaoMinutos(dto.duracaoMinutos() != null ? dto.duracaoMinutos() : 30);
         agenda.setDisponivel(dto.isDisponivel());
+
+        // Implemenatação 4.3.2 para validação de choque
+        LocalTime inicio = dto.horaAgenda();
+        int duracao = dto.duracaoMinutos() != null ? dto.duracaoMinutos() : 30;
+        LocalTime fim = inicio.plusMinutes(duracao);
+
+        if (agendaRepository.existsOverlapping(dto.dataAgenda(), inicio, fim)) {
+            throw new HorarioOcupadoException("O horário selecionado entra em conflito com um agendamento existente.");
+        }
 
         return agendaRepository.save(agenda);
     }
