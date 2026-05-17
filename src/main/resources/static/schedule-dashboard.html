@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agendamentos – NutriVibes</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>.dash-toolbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;gap:1rem;flex-wrap:wrap}.search-wrap{position:relative;flex:1;min-width:220px;max-width:400px}.search-wrap input{width:100%;padding:.625rem .75rem .625rem 2.25rem;border:1px solid var(--gray-200);border-radius:var(--radius);font-size:.875rem;outline:none}.search-wrap input:focus{border-color:var(--green-500);box-shadow:0 0 0 3px rgba(82,183,136,.15)}.search-icon{position:absolute;left:.75rem;top:50%;transform:translateY(-50%);color:var(--gray-400);pointer-events:none}.search-icon svg{width:15px;height:15px}.dash-actions{display:flex;gap:.625rem}</style>
+</head>
+<body>
+<div class="admin-layout">
+  
+<nav class="sidebar" aria-label="Menu administrativo">
+  <div class="sidebar__logo">
+    <span class="sidebar__logo-icon">N</span>
+    <span class="sidebar__logo-name">NutriAdmin</span>
+  </div>
+  <div class="sidebar__nav">
+    <a href="schedule-dashboard.html" class="sidebar__link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg> Dashboard</a>
+    <a href="schedule-dashboard.html" class="sidebar__link sidebar__link--active"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Agendamentos</a>
+    <a href="schedule-opened.html" class="sidebar__link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Disponibilidade</a>
+    <a href="customer-empty-state.html" class="sidebar__link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Pacientes</a>
+  </div>
+  <div class="sidebar__footer">
+    <a href="login.html" class="sidebar__link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg> Sair</a>
+  </div>
+</nav>
+  <div class="admin-main">
+    
+<header class="admin-topbar">
+  <h1 class="admin-topbar__title">Agendamentos</h1>
+  <div class="admin-topbar__right">
+    <button class="admin-topbar__bell" aria-label="Notificações"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></button>
+    <div class="admin-topbar__user">
+      <div class="admin-topbar__user-info">
+        <p class="admin-topbar__user-name">Leticia Rocha</p>
+        <p class="admin-topbar__user-role">Nutricionista Chefe</p>
+      </div>
+      <div class="admin-topbar__avatar">
+        <img src="image-admin-profile0.png" alt="Leticia Rocha" onerror="this.style.display='none'">
+        <span id="avatarFallback">LR</span>
+      </div>
+    </div>
+  </div>
+</header>
+    <main class="admin-content">
+      <div class="dash-toolbar">
+        <div class="search-wrap">
+          <span class="search-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
+          <input type="search" placeholder="Buscar por nome, email ou telefone...">
+        </div>
+        <div class="dash-actions">
+          <button class="btn btn--outline"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg> Filtrar Data</button>
+          <a href="add-customer.html" class="btn btn--primary">+ Novo Agendamento</a>
+        </div>
+      </div>
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Paciente</th>
+              <th>Objetivo</th>
+              <th>Data &amp; Hora</th>
+              <th>Status</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+      <tr>
+        <td>
+          <div class="patient-cell">
+            <div class="patient-avatar">A</div>
+            <div>
+              <p class="patient-name">Ana Souza</p>
+              <p class="patient-contact">ana@email.com<br>(11) 99999-9999</p>
+            </div>
+          </div>
+        </td>
+        <td>Emagrecimento</td>
+        <td>19/03/2024<br><span style="color:var(--gray-500)">14:00</span></td>
+        <td><span class="badge badge--success">Confirmado</span></td>
+        <td>
+          <button class="action-btn" title="Editar"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+          <button class="action-btn" title="Excluir" style="color:var(--red-600)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg></button>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="patient-cell">
+            <div class="patient-avatar">C</div>
+            <div>
+              <p class="patient-name">Carlos Mendes</p>
+              <p class="patient-contact">carlos@email.com<br>(11) 98888-8888</p>
+            </div>
+          </div>
+        </td>
+        <td>Hipertrofia</td>
+        <td>19/03/2024<br><span style="color:var(--gray-500)">15:00</span></td>
+        <td><span class="badge badge--warning">Pendente</span></td>
+        <td>
+          <button class="action-btn" title="Editar"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+          <button class="action-btn" title="Excluir" style="color:var(--red-600)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg></button>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="patient-cell">
+            <div class="patient-avatar">F</div>
+            <div>
+              <p class="patient-name">Fernanda Costa</p>
+              <p class="patient-contact">fernanda@email.com<br>(11) 97777-7777</p>
+            </div>
+          </div>
+        </td>
+        <td>Reeducação</td>
+        <td>20/03/2024<br><span style="color:var(--gray-500)">09:00</span></td>
+        <td><span class="badge badge--info">Concluído</span></td>
+        <td>
+          <button class="action-btn" title="Editar"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+          <button class="action-btn" title="Excluir" style="color:var(--red-600)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg></button>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="patient-cell">
+            <div class="patient-avatar">R</div>
+            <div>
+              <p class="patient-name">Roberto Lima</p>
+              <p class="patient-contact">roberto@email.com<br>(11) 96666-6666</p>
+            </div>
+          </div>
+        </td>
+        <td>Saúde</td>
+        <td>20/03/2024<br><span style="color:var(--gray-500)">10:00</span></td>
+        <td><span class="badge badge--danger">Cancelado</span></td>
+        <td>
+          <button class="action-btn" title="Editar"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+          <button class="action-btn" title="Excluir" style="color:var(--red-600)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg></button>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="patient-cell">
+            <div class="patient-avatar">J</div>
+            <div>
+              <p class="patient-name">Juliana Paes</p>
+              <p class="patient-contact">juliana@email.com<br>(11) 95555-5555</p>
+            </div>
+          </div>
+        </td>
+        <td>Vegetariano</td>
+        <td>21/03/2024<br><span style="color:var(--gray-500)">16:00</span></td>
+        <td><span class="badge badge--success">Confirmado</span></td>
+        <td>
+          <button class="action-btn" title="Editar"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+          <button class="action-btn" title="Excluir" style="color:var(--red-600)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg></button>
+        </td>
+      </tr>
+          </tbody>
+        </table>
+        <div class="pagination">
+          <span>Mostrando <strong>1</strong> a <strong>5</strong> de <strong>24</strong> resultados</span>
+          <div class="pagination__btns">
+            <button class="pagination__btn" disabled aria-label="Anterior"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button>
+            <button class="pagination__btn" aria-label="Próximo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+</body></html>

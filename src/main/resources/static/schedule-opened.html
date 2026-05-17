@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Disponibilidade – NutriVibes</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+.avail-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:.75rem}
+.avail-desc{color:var(--gray-500);font-size:.875rem;margin-top:.25rem}
+.avail-table-wrap{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius-xl);overflow:auto}
+.avail-table{width:100%;border-collapse:collapse;min-width:640px}
+.avail-table th,.avail-table td{padding:.5rem .625rem;border-bottom:1px solid var(--gray-100);text-align:center}
+.avail-table thead th{background:var(--gray-50);font-size:.75rem;color:var(--gray-500);font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+.avail-table thead th:first-child{text-align:left;width:80px}
+.avail-table tbody tr:last-child td,.avail-table tbody tr:last-child th{border-bottom:none}
+.avail-time{text-align:left!important;font-size:.8rem;font-weight:600;color:var(--gray-600);padding-left:.875rem!important}
+.day-name{display:block;font-size:.8rem;font-weight:600}
+.day-date{display:block;font-size:.72rem;color:var(--gray-400)}
+.slot-avail{display:inline-block;padding:.25rem .75rem;border-radius:var(--radius-full);font-size:.78rem;font-weight:500;cursor:pointer;border:1px solid transparent;transition:all .15s}
+.slot-avail--free{background:var(--green-100);color:var(--green-700);border-color:var(--green-200)}
+.slot-avail--free:hover{background:var(--green-200)}
+.slot-avail--bloq{background:var(--gray-100);color:var(--gray-500);border-color:var(--gray-200)}
+.slot-avail--bloq:hover{background:var(--gray-200)}
+</style>
+</head>
+<body>
+<div class="admin-layout">
+  
+<nav class="sidebar" aria-label="Menu administrativo">
+  <div class="sidebar__logo">
+    <span class="sidebar__logo-icon">N</span>
+    <span class="sidebar__logo-name">NutriAdmin</span>
+  </div>
+  <div class="sidebar__nav">
+    <a href="schedule-dashboard.html" class="sidebar__link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg> Dashboard</a>
+    <a href="schedule-dashboard.html" class="sidebar__link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Agendamentos</a>
+    <a href="schedule-opened.html" class="sidebar__link sidebar__link--active"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Disponibilidade</a>
+    <a href="customer-empty-state.html" class="sidebar__link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Pacientes</a>
+  </div>
+  <div class="sidebar__footer">
+    <a href="login.html" class="sidebar__link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg> Sair</a>
+  </div>
+</nav>
+  <div class="admin-main">
+    
+<header class="admin-topbar">
+  <h1 class="admin-topbar__title">Disponibilidade</h1>
+  <div class="admin-topbar__right">
+    <button class="admin-topbar__bell" aria-label="Notificações"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></button>
+    <div class="admin-topbar__user">
+      <div class="admin-topbar__user-info">
+        <p class="admin-topbar__user-name">Leticia Rocha</p>
+        <p class="admin-topbar__user-role">Nutricionista Chefe</p>
+      </div>
+      <div class="admin-topbar__avatar">
+        <img src="image-admin-profile0.png" alt="Leticia Rocha" onerror="this.style.display='none'">
+        <span id="avatarFallback">LR</span>
+      </div>
+    </div>
+  </div>
+</header>
+    <main class="admin-content">
+      <div class="avail-table-wrap">
+        <div style="padding:1.25rem 1.5rem;border-bottom:1px solid var(--gray-100);display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.75rem">
+          <div>
+            <h2 style="font-size:1rem;font-weight:600">Configurar Disponibilidade</h2>
+            <p class="avail-desc">Clique nos horários para liberar ou bloquear a agenda.</p>
+          </div>
+          <button class="btn btn--primary btn--round" id="save-avail">Salvar Alterações</button>
+        </div>
+        <table class="avail-table" aria-label="Grade de disponibilidade">
+          <thead>
+            <tr>
+              <th scope="col" style="text-align:left;padding-left:.875rem">Horário</th>
+              <th scope="col"><span class="day-name">Dom</span><span class="day-date">17/05</span></th><th scope="col"><span class="day-name">Seg</span><span class="day-date">18/05</span></th><th scope="col"><span class="day-name">Ter</span><span class="day-date">19/05</span></th><th scope="col"><span class="day-name">Qua</span><span class="day-date">20/05</span></th><th scope="col"><span class="day-name">Qui</span><span class="day-date">21/05</span></th><th scope="col"><span class="day-name">Sex</span><span class="day-date">22/05</span></th><th scope="col"><span class="day-name">Sáb</span><span class="day-date">23/05</span></th>
+            </tr>
+          </thead>
+          <tbody><tr><th scope="row" class="avail-time">08:00</th><td><button class="slot-avail slot-avail--free" data-time="08:00" data-day="Dom">Livre</button></td><td><button class="slot-avail slot-avail--free" data-time="08:00" data-day="Seg">Livre</button></td><td><button class="slot-avail slot-avail--free" data-time="08:00" data-day="Ter">Livre</button></td><td><button class="slot-avail slot-avail--free" data-time="08:00" data-day="Qua">Livre</button></td><td><button class="slot-avail slot-avail--free" data-time="08:00" data-day="Qui">Livre</button></td><td><button class="slot-avail slot-avail--free" data-time="08:00" data-day="Sex">Livre</button></td><td><button class="slot-avail slot-avail--free" data-time="08:00" data-day="Sáb">Livre</button></td></tr><tr><th scope="row" class="avail-time">09:00</th><td><button class="slot-avail slot-avail--bloq" data-time="09:00" data-day="Dom">Bloq.</button></td><td><button class="slot-avail slot-avail--free" data-time="09:00" data-day="Seg">Livre</button></td><td><button class="slot-avail slot-avail--free" data-time="09:00" data-day="Ter">Livre</button></td><td><button class="slot-avail slot-avail--free" data-time="09:00" data-day="Qua">Livre</button></td><td><button class="slot-avail slot-avail--free" data-time="09:00" data-day="Qui">Livre</button></td><td><button class="slot-avail slot-avail--free" data-time="09:00" data-day="Sex">Livre</button></td><td><button class="slot-avail slot-avail--bloq" data-time="09:00" data-day="Sáb">Bloq.</button></td></tr><tr><th scope="row" class="avail-time">10:00</th><td><button class="slot-avail slot-avail--bloq" data-time="10:00" data-day="Dom">Bloq.</button></td><td><button class="slot-avail slot-avail--free" data-time="10:00" data-day="Seg">Livre</button></td><td><button class="slot-avail slot-avail--free" data-time="10:00" data-day="Ter">Livre</button></td><td><button class="slot-avail slot-avail--free" data-time="10:00" data-day="Qua">Livre</button></td><td><button class="slot-avail slot-avail--free" data-time="10:00" data-day="Qui">Livre</button></td><td><button class="slot-avail slot-avail--free" data-time="10:00" data-day="Sex">Livre</button></td><td><button class="slot-avail slot-avail--bloq" data-time="10:00" data-day="Sáb">Bloq.</button></td></tr><tr><th scope="row" class="avail-time">11:00</th><td><button class="slot-avail slot-avail--bloq" data-time="11:00" data-day="Dom">Bloq.</button></td><td><button class="slot-avail slot-avail--free" data-time="11:00" data-day="Seg">Livre</button></td><td><button class="slot-avail slot-avail--free" data-time="11:00" data-day="Ter">Livre</button></td><td><button class="slot-avail slot-avail--free" data-time="11:00" data-day="Qua">Livre</button></td><td><button class="slot-avail slot-avail--free" data-time="11:00" data-day="Qui">Livre</button></td><td><button class="slot-avail slot-avail--free" data-time="11:00" data-day="Sex">Livre</button></td><td><button class="slot-avail slot-avail--bloq" data-time="11:00" data-day="Sáb">Bloq.</button></td></tr><tr><th scope="row" class="avail-time">14:00</th><td><button class="slot-avail slot-avail--bloq" data-time="14:00" data-day="Dom">Bloq.</button></td><td><button class="slot-avail slot-avail--free" data-time="14:00" data-day="Seg">Livre</button></td><td><button class="slot-avail slot-avail--free" data-time="14:00" data-day="Ter">Livre</button></td><td><button class="slot-avail slot-avail--free" data-time="14:00" data-day="Qua">Livre</button></td><td><button class="slot-avail slot-avail--free" data-time="14:00" data-day="Qui">Livre</button></td><td><button class="slot-avail slot-avail--free" data-time="14:00" data-day="Sex">Livre</button></td><td><button class="slot-avail slot-avail--bloq" data-time="14:00" data-day="Sáb">Bloq.</button></td></tr><tr><th scope="row" class="avail-time">15:00</th><td><button class="slot-avail slot-avail--bloq" data-time="15:00" data-day="Dom">Bloq.</button></td><td><button class="slot-avail slot-avail--free" data-time="15:00" data-day="Seg">Livre</button></td><td><button class="slot-avail slot-avail--free" data-time="15:00" data-day="Ter">Livre</button></td><td><button class="slot-avail slot-avail--free" data-time="15:00" data-day="Qua">Livre</button></td><td><button class="slot-avail slot-avail--free" data-time="15:00" data-day="Qui">Livre</button></td><td><button class="slot-avail slot-avail--free" data-time="15:00" data-day="Sex">Livre</button></td><td><button class="slot-avail slot-avail--bloq" data-time="15:00" data-day="Sáb">Bloq.</button></td></tr><tr><th scope="row" class="avail-time">16:00</th><td><button class="slot-avail slot-avail--bloq" data-time="16:00" data-day="Dom">Bloq.</button></td><td><button class="slot-avail slot-avail--free" data-time="16:00" data-day="Seg">Livre</button></td><td><button class="slot-avail slot-avail--free" data-time="16:00" data-day="Ter">Livre</button></td><td><button class="slot-avail slot-avail--free" data-time="16:00" data-day="Qua">Livre</button></td><td><button class="slot-avail slot-avail--free" data-time="16:00" data-day="Qui">Livre</button></td><td><button class="slot-avail slot-avail--free" data-time="16:00" data-day="Sex">Livre</button></td><td><button class="slot-avail slot-avail--bloq" data-time="16:00" data-day="Sáb">Bloq.</button></td></tr><tr><th scope="row" class="avail-time">17:00</th><td><button class="slot-avail slot-avail--free" data-time="17:00" data-day="Dom">Livre</button></td><td><button class="slot-avail slot-avail--free" data-time="17:00" data-day="Seg">Livre</button></td><td><button class="slot-avail slot-avail--free" data-time="17:00" data-day="Ter">Livre</button></td><td><button class="slot-avail slot-avail--free" data-time="17:00" data-day="Qua">Livre</button></td><td><button class="slot-avail slot-avail--free" data-time="17:00" data-day="Qui">Livre</button></td><td><button class="slot-avail slot-avail--free" data-time="17:00" data-day="Sex">Livre</button></td><td><button class="slot-avail slot-avail--free" data-time="17:00" data-day="Sáb">Livre</button></td></tr><tr><th scope="row" class="avail-time">18:00</th><td><button class="slot-avail slot-avail--bloq" data-time="18:00" data-day="Dom">Bloq.</button></td><td><button class="slot-avail slot-avail--free" data-time="18:00" data-day="Seg">Livre</button></td><td><button class="slot-avail slot-avail--free" data-time="18:00" data-day="Ter">Livre</button></td><td><button class="slot-avail slot-avail--free" data-time="18:00" data-day="Qua">Livre</button></td><td><button class="slot-avail slot-avail--free" data-time="18:00" data-day="Qui">Livre</button></td><td><button class="slot-avail slot-avail--free" data-time="18:00" data-day="Sex">Livre</button></td><td><button class="slot-avail slot-avail--bloq" data-time="18:00" data-day="Sáb">Bloq.</button></td></tr></tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+</div>
+<script>
+  document.querySelectorAll('.slot-avail').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var isFree = this.classList.contains('slot-avail--free');
+      this.classList.toggle('slot-avail--free', !isFree);
+      this.classList.toggle('slot-avail--bloq', isFree);
+      this.textContent = isFree ? 'Bloq.' : 'Livre';
+    });
+  });
+  document.getElementById('save-avail').addEventListener('click', function() {
+    this.textContent = 'Salvo!';
+    setTimeout(() => { this.textContent = 'Salvar Alterações'; }, 2000);
+  });
+</script>
+</body></html>
