@@ -1,6 +1,14 @@
 package com.pi.nutri.service;
 
+<<<<<<< Updated upstream
 import com.pi.nutri.dto.UsuarioCadastroDTO;
+=======
+import java.util.List;
+
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+>>>>>>> Stashed changes
 import com.pi.nutri.model.Usuario;
 import com.pi.nutri.repository.UsuarioRepository;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -11,8 +19,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+<<<<<<< Updated upstream
 import java.util.List;
 
+=======
+>>>>>>> Stashed changes
 @Service
 public class UsuarioService implements UserDetailsService {
 
@@ -24,6 +35,7 @@ public class UsuarioService implements UserDetailsService {
         this.passwordEncoder = passwordEncoder;
     }
 
+<<<<<<< Updated upstream
     public Usuario salvarUsuario(UsuarioCadastroDTO dto) {
         Usuario usuario = new Usuario();
         usuario.setNome(dto.nome());
@@ -31,12 +43,17 @@ public class UsuarioService implements UserDetailsService {
         usuario.setSenha(passwordEncoder.encode(dto.senha()));
         usuario.setNutri(dto.isNutri());
         usuario.setCrn(dto.crn());
+=======
+    public Usuario salvarUsuario(Usuario usuario) {
+        usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
+>>>>>>> Stashed changes
         return usuarioRepository.save(usuario);
     }
 
     public List<Usuario> listarUsuarios() {
         return usuarioRepository.findAll();
     }
+<<<<<<< Updated upstream
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -50,4 +67,6 @@ public class UsuarioService implements UserDetailsService {
                 List.of(new SimpleGrantedAuthority(role))
         );
     }
+=======
+>>>>>>> Stashed changes
 }

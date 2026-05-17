@@ -1,5 +1,6 @@
 package com.pi.nutri.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Data;
 @Data
@@ -19,6 +20,7 @@ public class Usuario {
     @Column(nullable = false)
     private String senha;
 
+    @JsonProperty("isNutri")
     @Column(name = "is_nutri", nullable = false)
     private boolean isNutri;
 

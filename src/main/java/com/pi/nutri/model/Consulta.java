@@ -15,8 +15,8 @@ public class Consulta {
     private Usuario usuario;
 
     @OneToOne
-    private Agenda agenda;
     @JoinColumn(name = "agenda_id", nullable = false, unique = true)
+    private Agenda agenda;
 
     @Column(nullable = false, length = 20)
     private String status = "AGENDADA";    

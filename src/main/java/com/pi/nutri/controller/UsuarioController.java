@@ -12,7 +12,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+<<<<<<< Updated upstream
 import java.util.List;
+=======
+import com.pi.nutri.dto.UsuarioResponseDTO;
+import com.pi.nutri.model.Usuario;
+import com.pi.nutri.service.UsuarioService;
+>>>>>>> Stashed changes
 
 @RestController
 @RequestMapping("/api/usuarios")
@@ -25,16 +31,26 @@ public class UsuarioController {
     }
 
     @PostMapping
+<<<<<<< Updated upstream
     public ResponseEntity<UsuarioResponseDTO> criarUsuario(@RequestBody UsuarioCadastroDTO dto) {
         Usuario novoUsuario = usuarioService.salvarUsuario(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(UsuarioResponseDTO.de(novoUsuario));
+=======
+    public ResponseEntity<UsuarioResponseDTO> criarUsuario(@RequestBody Usuario usuario) {
+        Usuario salvo = usuarioService.salvarUsuario(usuario);
+        return ResponseEntity.status(HttpStatus.CREATED).body(UsuarioResponseDTO.from(salvo));
+>>>>>>> Stashed changes
     }
 
     @GetMapping
     public ResponseEntity<List<UsuarioResponseDTO>> listarUsuarios() {
         List<UsuarioResponseDTO> usuarios = usuarioService.listarUsuarios()
                 .stream()
+<<<<<<< Updated upstream
                 .map(UsuarioResponseDTO::de)
+=======
+                .map(UsuarioResponseDTO::from)
+>>>>>>> Stashed changes
                 .toList();
         return ResponseEntity.ok(usuarios);
     }
