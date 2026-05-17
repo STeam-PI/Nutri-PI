@@ -33,6 +33,7 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.POST, "/api/usuarios/reset-senha").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/api/agendas/**").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/api/agendas/**").permitAll()
+                                .requestMatchers("/error").permitAll()
                                 .anyRequest().authenticated())
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

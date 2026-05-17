@@ -1,10 +1,14 @@
 package com.pi.nutri.service;
 
 import com.pi.nutri.dto.Agenda.AgendaRequestDto;
+import com.pi.nutri.exception.HorarioOcupadoException;
 import com.pi.nutri.model.Agenda;
 import com.pi.nutri.repository.AgendaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalTime;
 import java.util.List;
 
 @Service
@@ -25,14 +29,29 @@ public class AgendaService {
     }
 
     /**
-     * EAP 4.3.3: Cria um novo slot de horário na agenda.
+     * EAP 4.3.3 & 4.3.2: Cria um novo slot de horário validando a duração e conflitos.
      */
+    @Transactional // Requisito 4.3.2: Garante atomicidade na operação
     public Agenda criarHorario(AgendaRequestDto dto) {
+        // 1. Cálculos de Tempo (4.3.3 e 4.3.2)
+        LocalTime inicio = dto.horaAgenda();
+        int duracao = dto.duracaoMinutos() != null ? dto.duracaoMinutos() : 30;
+        LocalTime fim = inicio.plusMinutes(duracao);
+        // 2. Validação de Choque (nucleo de 4.3.2)
+
+        // Formatação para string HH:mm
+        String strInicio = inicio.toString(); // Ex: "14:00"
+        String strFim = fim.toString();       // Ex: "14:30"
+
+        if (agendaRepository.existsOverlapping(dto.dataAgenda(), strInicio, strFim)) {
+            throw new HorarioOcupadoException("Conflito de horários: Já existe um atendimento neste intervalo.");
+        }
+
+        // 3. Persistência (Lógica da 4.3.3)
         Agenda agenda = new Agenda();
         agenda.setDataAgenda(dto.dataAgenda());
-        agenda.setHoraAgenda(dto.horaAgenda());
-        // Regra da 4.3.3: Se a duração for nula no DTO, aplicar 30 como default
-        agenda.setDuracaoMinutos(dto.duracaoMinutos() != null ? dto.duracaoMinutos() : 30);
+        agenda.setHoraAgenda(inicio);
+        agenda.setDuracaoMinutos(duracao);
         agenda.setDisponivel(dto.isDisponivel());
 
         return agendaRepository.save(agenda);
