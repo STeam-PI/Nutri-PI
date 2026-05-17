@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.pi.nutri.model.Usuario;
 import com.pi.nutri.repository.UsuarioRepository;
 
-import lombok.var;
 
 @Service
 public class UsuarioService {
