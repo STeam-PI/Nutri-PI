@@ -48,7 +48,30 @@ public class ConsultaService {
         Consulta consulta = new Consulta();
         consulta.setUsuario(usuario);
         consulta.setAgenda(agenda);
-        consulta.setStatus("AGENDADA");
+        consulta.setStatus("PENDENTE");
+
+        return consultaRepository.save(consulta);
+    }
+
+    @Transactional
+    public Consulta alterarStatus(Long consultaId, String novoStatus, Long responsavelId) {
+        Consulta consulta = consultaRepository.findById(consultaId)
+            .orElseThrow(() -> new IllegalArgumentException("Consulta não encontrada."));
+
+        Usuario responsavel = usuarioRepository.findById(responsavelId)
+            .orElseThrow(() -> new IllegalArgumentException("Usuário responsável não encontrado."));
+
+        if (!responsavel.isNutri()) {
+            throw new IllegalArgumentException("Apenas membros da equipe (Nutricionistas/Recepção) podem alterar o status.");
+        }
+
+        if (!novoStatus.equals("PENDENTE") && !novoStatus.equals("CONFIRMADA") 
+            && !novoStatus.equals("CANCELADA") && !novoStatus.equals("REALIZADA")) {
+            throw new IllegalArgumentException("Status inválido.");
+        }
+
+        consulta.setStatus(novoStatus);
+        consulta.setAtualizadoPor(responsavel);
 
         return consultaRepository.save(consulta);
     }

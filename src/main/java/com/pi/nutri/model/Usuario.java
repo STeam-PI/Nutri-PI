@@ -20,6 +20,7 @@ public class Usuario {
     private String senha;
 
     @Column(name = "is_nutri", nullable = false)
+    @com.fasterxml.jackson.annotation.JsonProperty("isNutri")
     private boolean isNutri;
 
     @Column(length = 20)

@@ -30,4 +30,14 @@ public class ConsultaController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
+
+    @org.springframework.web.bind.annotation.PutMapping("/{id}/status")
+    public ResponseEntity<?> alterarStatus(@org.springframework.web.bind.annotation.PathVariable Long id, @RequestBody com.pi.nutri.dto.AlterarStatusRequest request) {
+        try {
+            Consulta consultaAtualizada = consultaService.alterarStatus(id, request.getNovoStatus(), request.getResponsavelId());
+            return ResponseEntity.ok(consultaAtualizada);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
 }
