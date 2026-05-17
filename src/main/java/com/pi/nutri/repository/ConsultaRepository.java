@@ -6,4 +6,5 @@ import com.pi.nutri.model.Consulta;
 
 public interface ConsultaRepository extends JpaRepository<Consulta, Long>{
     
+    boolean existsByAgendaId(Long agendaId);
 }
