@@ -10,13 +10,13 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public interface AgendaRepository extends JpaRepository<Agenda, Long> {
-    @Query("SELECT COUNT(a) > 0 FROM Agenda a WHERE " +
-            "a.dataAgenda = :data AND " +
-            "(:horaInicio < FUNCTION('DATEADD', minute, a.duracaoMinutos, a.horaAgenda)) AND " +
-            "(:horaFim > a.horaAgenda)")
+    @Query(value = "SELECT CASE WHEN COUNT(*) > 0 THEN 'TRUE' ELSE 'FALSE' END FROM agendas WHERE " +
+            "data_agenda = :data AND " +
+            "(:horaInicio < CONVERT(varchar(5), DATEADD(minute, duracao_minutos, hora_agenda), 108)) AND " +
+            "(:horaFim > CONVERT(varchar(5), hora_agenda, 108))", nativeQuery = true)
     boolean existsOverlapping(
             @Param("data") LocalDate data,
-            @Param("horaInicio") LocalTime horaInicio,
-            @Param("horaFim") LocalTime horaFim
+            @Param("horaInicio") String horaInicio,
+            @Param("horaFim") String horaFim
     );
 }

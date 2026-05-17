@@ -39,7 +39,11 @@ public class AgendaService {
         LocalTime fim = inicio.plusMinutes(duracao);
         // 2. Validação de Choque (nucleo de 4.3.2)
 
-        if (agendaRepository.existsOverlapping(dto.dataAgenda(), inicio, fim)) {
+        // Formatação para string HH:mm
+        String strInicio = inicio.toString(); // Ex: "14:00"
+        String strFim = fim.toString();       // Ex: "14:30"
+
+        if (agendaRepository.existsOverlapping(dto.dataAgenda(), strInicio, strFim)) {
             throw new HorarioOcupadoException("Conflito de horários: Já existe um atendimento neste intervalo.");
         }
 
